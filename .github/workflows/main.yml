@@ -12,3 +12,14 @@ jobs:
       # Step 1: Checkout the repository
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      # Step 2: Update index.html
+      # Worked solo: all three roles push as the GitHub user le23967, so each check
+      # also compares the commit author name to tell the team roles apart.
+
+      # Check if the GitHub actor is the team leader
+      # Run the following CLI command to update index.html
+      - name: Update index.html (Team Leader)
+        if: github.actor == 'le23967' && github.event.head_commit.author.name == 'Xianggui (leader)'
+        run: |
+          sed -i '/<\/body>/i <p>Updated by Team Leader on '"$(date)"'</p>' index.html
