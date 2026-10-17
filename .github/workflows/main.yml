@@ -37,3 +37,12 @@ jobs:
         if: github.actor == 'le23967' && github.event.head_commit.author.name == 'Xianggui (member2)'
         run: |
           sed -i '/<\/body>/i <p>Updated by Member 2 on '"$(date)"'</p>' index.html
+
+      # Step 3: Update README
+      # Append a log entry to the README.md file
+      # Use the CLI to append a line to README.md
+      # The log entry should look like this:
+      ### Updated by <username> on <date> [Commit: commitID]
+      - name: Update README
+        run: |
+          echo "### Updated by ${{ github.actor }} on $(date '+%Y-%m-%d %H:%M:%S') [Commit: $(git rev-parse --short HEAD)]" >> README.md
